@@ -4,14 +4,14 @@ Je nach Einstellungen können User auch noch NPCs hinzufügen. Auch kann ein Tea
 Die Kategorien für die Beziehungskiste können im ACP festgelegt und ob Gäste die Avatare sehen können oder nicht. 
 Die Bezeichnung für den Default Avatar (wird angezeigt, wenn kein Avatar vorhanden ist oder ein NPC eingetragen wurde oder Gästen angezeigt werden sollen) kann auch manuell festgelegt werden.
 
-#Datenbank-Änderungen
+# Datenbank-Änderungen
 Hinzugefügte Tabellen:
 - PRÄFIX_relations
 
-#Neue Template-Gruppe innerhalb der Design-Templates
+# Neue Template-Gruppe innerhalb der Design-Templates
 - Beziehungssystem
 
-#Neue Templates (nicht global!)
+# Neue Templates (nicht global!)
 - relations
 - relations_add
 - relations_add_notext
@@ -28,19 +28,26 @@ Hinzugefügte Tabellen:
 - relations_none
 - relations_type
 
-#Template Änderungen - neue Variablen
+# Template Änderungen - neue Variablen
 - member_profile - {$relations_show} {$relations_add} 
 
-#ACP-Einstellungen - Beziehungssystem
+# ACP-Einstellungen - Beziehungssystem
 - Beziehungskategorien
 - Standard-Avatar
 - Avatar ausblenden
 - Relationtexte
 - NPCs
 
-#Demo 
+# Fakten bei Usern
+Es können alle Informationen aus den Profilfeldern und der User-Datenbanktabelle ausgegeben werden. Dafür muss man nur die Variable angeben und entsprechend anpassen:
+{$relation['Name der Spalte']} 
+
+# Automatische Altersberechnung 
+Einige von euch benutzen die angebotenen Inplaykalender und die Möglichkeit sich das Alter automatisch ausre
+
+# Demo 
 Das Layout ist extrems simple und einfach gehalten. In dem Bit Tpls kann man komplett mit div arbeiten.
 
-#Support
+# Support
 Wie viele von euch wissen, bin ich noch kein wirklicher Profi und habe auch noch nicht allzu viele Plugins geschrieben, somit ist teilweise mein Wissen auch begrenzt und ich weiß nicht immer sofort, was die Lösung ist. 
 Aber ich versuche mein bestes, auch wenn es manchmal etwas langsamer vorangeht. Ich hab auch kein Problem, wenn jemand anderes Support gibt und somit hilft.
