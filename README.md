@@ -42,9 +42,6 @@ Hinzugefügte Tabellen:
 Es können alle Informationen aus den Profilfeldern und der User-Datenbanktabelle ausgegeben werden. Dafür muss man nur die Variable angeben und entsprechend anpassen:
 {$relation['Name der Spalte']} 
 
-# Automatische Altersberechnung 
-Einige von euch benutzen die angebotenen Inplaykalender und die Möglichkeit sich das Alter automatisch ausre
-
 # Demo 
 Das Layout ist extrems simple und einfach gehalten. In dem Bit Tpls kann man komplett mit div arbeiten.
 
