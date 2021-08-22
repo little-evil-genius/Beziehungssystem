@@ -18,7 +18,7 @@ function relations_info()
 {
 	return array(
 		"name"		=> "Beziehungssystem",
-		"description"	=> "Das Plugin erweitert das Board um ein Beziehungssystem. User können andere Accounts zu ihrer Beziehungskiste hinzufügen. Je nach Einstellungen können User auch noch NPCs hinzufügen. Auch kann ein Team im ACP festlegen, ob die User einen Beschreibungstext hinzufügen können.",
+		"description"	=> "Das Plugin erweitert das Board um ein Beziehungssystem. User können andere Accounts zu ihrer Beziehungskiste hinzufügen. Je nach Einstellungen können User auch noch NPCs hinzufügen.",
 		"author"	=> "little.evil.genius",
 		"authorsite"	=> "https://storming-gates.de/member.php?action=profile&uid=1712",
 		"version"	=> "1.0",
@@ -504,6 +504,50 @@ function relations_install()
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" name="edit_npc" id="submit" class="button" value="{$lang->relations_edit_npc_send}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>'),
+        'sid'		=> '-2',
+        'dateline'	=> TIME_NOW
+    );
+    $db->insert_query("templates", $insert_array);
+
+    // Bearbeitung NPC - OHNE TEXT
+    $insert_array = array(
+        'title'		=> 'relations_edit_npc_notext',
+        'template'	=> $db->escape_string('<form action="member.php?action=profile&uid={$memprofile[\'uid\']}" method="post">
+        <input type="hidden" name="rid" id="rid" value="{$rid}" />
+        <table style="margin: 10px;">                         	
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" class="textbox" name="npc_name" id="npc_name" value="{$relation[\'npc_name\']}" required> 
+                    </td>
+                    <td>
+                         <input type="text" class="textbox" name="npc_info" id="npc_info" value="{$npc_info}" required> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <input type="text" class="textbox" name="relationship" id="relationship" value="{$relationship}" required> 
+                    </td>
+                    <td>
+                        <select name=\'type\' id=\'type\' style="width: 100%;" required>       
+                            <option value="{$type}">{$type}</option>
+                            {$cat_select}	
+                        </select>		
+                    </td>                                                    
+                </tr>
+                <tr>
+                <td align="center" colspan="2">
+                    <input type="text" class="textbox" name="npc_search" id="npc_search"  style="width: 98%" placeholder="Gibt es ein Gesuch zu diesem NPC? Hier den Link angeben" value="{$relation[\'npc_search\']}">
+                </td>    
+            </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" name="edit_npc" id="submit" class="button" value="NPC editieren">
                     </td>
                 </tr>
             </tbody>
