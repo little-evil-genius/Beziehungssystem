@@ -24,7 +24,7 @@ Hinzugefügte Tabellen:
 - relations_edit
 - relations_edit_notext
 - relations_edit_npc
-- 
+- relations_edit_npc_notext
 - relations_none
 - relations_type
 
