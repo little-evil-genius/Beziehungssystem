@@ -695,7 +695,9 @@ function relations_deactivate()
 // FUNKTIONEN - THE MAGIC
 function relations_member_profile_end()
 {
-    global $db, $mybb, $memprofile, $templates, $theme, $cat_select, $relations_add, $relations_show, $relations_type, $relations_bit, $option;
+    global $db, $mybb, $memprofile, $templates, $theme, $cat_select, $relations_add, $relations_show, $relations_type, $relations_bit, $option, $lang;
+
+    $lang->load('relations');
 
     // HTML & BBC ERLAUBEN/DARSTELLEN
     require_once MYBB_ROOT."inc/class_parser.php";
@@ -863,7 +865,7 @@ function relations_member_profile_end()
             if ($relation_with == 0){
 
                 // Avatar bilden
-                $npc_avatar = "<img src='{$theme['imgdir']}/{$relations_avatar_setting}' class='avatar'>";
+                $npc_avatar = "<img src='{$theme['imgdir']}/{$relations_avatar_setting}' width='100%'>";
 
                 // Link zum Gesuch bilden	
 			    if(!empty($relation['npc_search'])){
@@ -911,17 +913,17 @@ function relations_member_profile_end()
                 if ($relations_avatar_guest_setting == 1){
                     // Gäste und kein Avatar - Standard-Avatar
                     if ($mybb->user['uid'] == '0' || $relation['avatar'] == '') {
-                        $useravatar  = "<img src='{$theme['imgdir']}/{$relations_avatar_setting}' class='avatar'>";
+                        $useravatar  = "<img src='{$theme['imgdir']}/{$relations_avatar_setting}' width='100%'>";
                     } else {
-                        $useravatar  = "<img src='{$relation['avatar']}' class='avatar'>";
+                        $useravatar  = "<img src='{$relation['avatar']}' width='100%'>";
                     }
 
                 } else {
                     // kein Avatar - Standard-Avatar
                     if ($relation['avatar'] == '') {
-                        $useravatar  = "<img src='{$theme['imgdir']}/{$relations_avatar_setting}' class='avatar'>";
+                        $useravatar  = "<img src='{$theme['imgdir']}/{$relations_avatar_setting}' width='100%'>";
                     } else {
-                        $useravatar  = "<img src='{$relation['avatar']}' class='avatar'>";
+                        $useravatar  = "<img src='{$relation['avatar']}' width='100%'>";
                     }
                 }
 
