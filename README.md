@@ -67,18 +67,23 @@ Das Layout ist extrems simple und einfach gehalten. In dem Bit Tpls kann man kom
  <img src="https://www.bilder-hochladen.net/files/m4bn-8r-2ae5.png" /> 
  
  User bearbeiten - Mit Text
+ 
  <img src="https://www.bilder-hochladen.net/files/big/m4bn-8o-9ac9.png" />
  
  User bearbeiten - Ohne Text
+ 
  <img src="https://www.bilder-hochladen.net/files/m4bn-8p-8e75.png" />
  
  NPC bearbeiten - Mit Text
+ 
  <img src="https://www.bilder-hochladen.net/files/big/m4bn-8s-f6f9.png" />
  
  NPC bearbeiten - Ohne Text
+ 
  <img src="https://www.bilder-hochladen.net/files/m4bn-8t-84de.png" />
  
  MyAlerts Benachrichtigung
+ 
  <img src="https://www.bilder-hochladen.net/files/big/m4bn-8n-7d77.png" />
 
 
