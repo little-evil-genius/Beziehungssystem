@@ -26,10 +26,10 @@ $l['relations_redirect_delete'] = "Du hast den Beziehungseintrag erfolgreich aus
 $l['relations_new'] = '{1} hat dich als <strong>"{4}"</strong> in die Kategorie <strong>"{5}"</strong> bei sich in die Beziehungskiste eingetragen!';
 $l['myalerts_setting_relations_new'] = "Benachrichtigung bei neuer Beziehungseintragung?";
 
-$l['relations_alert_edit'] = '{1} den Beziehungseintrag zu <strong>"{4}"</strong> in der Kategorie <strong>"{5}"</strong> verändert!';
+$l['relations_alert_edit'] = '{1} hat den Beziehungseintrag zu <strong>"{4}"</strong> in der Kategorie <strong>"{5}"</strong> verändert!';
 $l['myalerts_setting_relations_alert_edit'] = "Benachrichtigung bei Veränderungen vom Beziehungseintragung?";
 
-$l['relations_delete'] = '{1} den Beziehungseintrag <strong>"{4}"</strong> in der Kategorie <strong>"{5}"</strong> gelöscht!';
+$l['relations_delete'] = '{1} hat den Beziehungseintrag <strong>"{4}"</strong> in der Kategorie <strong>"{5}"</strong> gelöscht!';
 $l['myalerts_setting_relations_delete'] = "Benachrichtigung bei Löschungen vom Beziehungseintragung?";
 
 ?>
