@@ -782,10 +782,10 @@ function relations_member_profile_end()
         $query_alert = $db->simple_select("relations", "*", "relation_by = '{$relation_user}'");
         while ($alert_rel = $db->fetch_array ($query_alert)) {
         if(class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
-            $user = get_user($memprofile['uid']);
+            $user = get_user($alert['uid']);
             $alertType = MybbStuff_MyAlerts_AlertTypeManager::getInstance()->getByCode('relations_new');
             if ($alertType != NULL && $alertType->getEnabled()) {
-                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$memprofile['uid'], $alertType, (int)$relation_user);
+                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_rel['uid'], $alertType, (int)$relation_user);
                 $alert->setExtraDetails([
                     'username' => $user['username'],
                     'relationship' => $alert_rel['relationship'],
@@ -986,7 +986,7 @@ function relations_member_profile_end()
     $query_alert_edit = $db->simple_select("relations", "*", "rid = '{$rid}'");
     while ($alert_edit = $db->fetch_array ($query_alert_edit)) {
         if(class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
-            $user = get_user($acceptedalert['relation_with']);
+            $user = get_user($alert['relation_with']);
             $alertType = MybbStuff_MyAlerts_AlertTypeManager::getInstance()->getByCode('relations_alert_edit');
             if ($alertType != NULL && $alertType->getEnabled()) {
                 $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_edit['relation_with'], $alertType, (int)$rid);
