@@ -782,7 +782,7 @@ function relations_member_profile_end()
         $query_alert = $db->simple_select("relations", "*", "relation_by = '{$relation_user}'");
         while ($alert_rel = $db->fetch_array ($query_alert)) {
         if(class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
-            $user = get_user($alert['uid']);
+            $user = get_user($memprofile['uid']);
             $alertType = MybbStuff_MyAlerts_AlertTypeManager::getInstance()->getByCode('relations_new');
             if ($alertType != NULL && $alertType->getEnabled()) {
                 $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_rel['uid'], $alertType, (int)$relation_user);
@@ -857,7 +857,7 @@ function relations_member_profile_end()
             $relation_with = $relation['relation_with'];
             $type = $relation['type'];
             $relationship = $relation['relationship'];
-            $description = $relation['description'];
+            $description = $parser->parse_message($relation['description'], $options);
             $npc_info = $relation['npc_info'];
             $npc_name = $relation['npc_name'];
 
