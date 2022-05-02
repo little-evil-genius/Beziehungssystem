@@ -779,22 +779,19 @@ function relations_member_profile_end()
         $db->insert_query("relations", $new_relation);
 
         // MyALERTS STUFF
-        $query_alert = $db->simple_select("relations", "*", "relation_by = '{$relation_user}'");
-        while ($alert_rel = $db->fetch_array ($query_alert)) {
         if(class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
-            $user = get_user($memprofile['uid']);
             $alertType = MybbStuff_MyAlerts_AlertTypeManager::getInstance()->getByCode('relations_new');
             if ($alertType != NULL && $alertType->getEnabled()) {
-                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_rel['uid'], $alertType, (int)$relation_user);
+                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$memprofile['uid'], $alertType, (int)$relation_user);
                 $alert->setExtraDetails([
-                    'username' => $user['username'],
-                    'relationship' => $alert_rel['relationship'],
-                    'type' => $alert_rel['type']
+                    'username' => $mybb->user['username'],
+                    'from' => $mybb->user['uid'],
+                    'relationship' => $mybb->get_input('relationship'),
+                    'type' => $mybb->get_input('type')
                 ]);
                 MybbStuff_MyAlerts_AlertManager::getInstance()->addAlert($alert);
             }
         }
-      }
 
         redirect("member.php?action=profile&uid={$relation_user}", "{$lang->relations_redirect_add}");
     }
@@ -991,9 +988,10 @@ function relations_member_profile_end()
             if ($alertType != NULL && $alertType->getEnabled()) {
                 $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_edit['relation_with'], $alertType, (int)$rid);
                 $alert->setExtraDetails([
-                    'username' => $user['username'],
-                    'relationship' => $alert_edit['relationship'],
-                    'type' => $alert_edit['type']
+                    'username' => $mybb->user['username'],
+                    'from' => $mybb->user['uid'],
+                    'relationship' => $mybb->get_input('relationship'),
+                    'type' => $mybb->get_input('type')
                 ]);
                 MybbStuff_MyAlerts_AlertManager::getInstance()->addAlert($alert);
             }
@@ -1033,7 +1031,8 @@ function relations_member_profile_end()
              if ($alertType != NULL && $alertType->getEnabled() && $mybb->user['uid'] != $alert_del['relation_with']) {
                 $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_del['relation_with'], $alertType, (int)$delete);
                 $alert->setExtraDetails([
-                    'username' => $user['username'],
+                    'username' => $mybb->user['username'],
+                    'from' => $mybb->user['uid'],
                     'relationship' => $alert_del['relationship'],
                     'type' => $alert_del['type']
                 ]);
@@ -1042,7 +1041,8 @@ function relations_member_profile_end()
             elseif ($alertType != NULL && $alertType->getEnabled() && $mybb->user['uid'] == $alert_del['relation_with']) {
                 $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_del['relation_by'], $alertType, (int)$delete);
                 $alert->setExtraDetails([
-                    'username' => $user['username'],
+                    'username' => $mybb->user['username'],
+                    'from' => $mybb->user['uid'],
                     'relationship' => $alert_del['relationship'],
                     'type' => $alert_del['type']
                 ]);
@@ -1087,11 +1087,10 @@ function relations_myalert_alerts() {
             $alertContent['username'] = format_name($user['username'], $user['usergroup'], $user['displaygroup']);
 	        return $this->lang->sprintf(
 	            $this->lang->relations_new,
-				$outputAlert['from_user'],
-				$alertContent['username'],
-	            $outputAlert['dateline'],
-				$alertContent['relationship'],
-				$alertContent['type']
+                $alertContent['username'],
+                $alertContent['from'],
+                $alertContent['relationship'],
+                $alertContent['type']         
 	        );
 	    }
 
@@ -1117,7 +1116,8 @@ function relations_myalert_alerts() {
 	     */
 	    public function buildShowLink(MybbStuff_MyAlerts_Entity_Alert $alert)
 	    {
-            return $this->mybb->settings['bburl'] . '/member.php?action=profile&uid=' . $alert->getObjectId();
+            $alertContent = $alert->getExtraDetails();
+            return $this->mybb->settings['bburl'] . '/member.php?action=profile&uid='.$alertContent['from'];
 	    }
 	}
 
@@ -1155,12 +1155,11 @@ function relations_myalert_alerts() {
             $user = get_user($userid);
             $alertContent['username'] = format_name($user['username'], $user['usergroup'], $user['displaygroup']);
 	        return $this->lang->sprintf(
-	            $this->lang->relations_alert_edit,
-				$outputAlert['from_user'],
-				$alertContent['username'],
-	            $outputAlert['dateline'],
-				$alertContent['relationship'],
-				$alertContent['type']
+	            $this->lang->relations_alert_edit, 
+                $alertContent['username'],
+                $alertContent['from'],
+                $alertContent['relationship'],
+                $alertContent['type']         
 	        );
 	    }
 
@@ -1186,7 +1185,8 @@ function relations_myalert_alerts() {
 	     */
 	    public function buildShowLink(MybbStuff_MyAlerts_Entity_Alert $alert)
 	    {
-	        return $this->mybb->settings['bburl'] . '/member.php?action=profile&uid=' . $alert->getObjectId();
+	        $alertContent = $alert->getExtraDetails();
+            return $this->mybb->settings['bburl'] . '/member.php?action=profile&uid='.$alertContent['from'];
 	    }
 	}
 
@@ -1224,11 +1224,10 @@ function relations_myalert_alerts() {
             $alertContent['username'] = format_name($user['username'], $user['usergroup'], $user['displaygroup']);
 	        return $this->lang->sprintf(
 	            $this->lang->relations_delete,
-				$outputAlert['from_user'],
-				$alertContent['username'],
-	            $outputAlert['dateline'],
-				$alertContent['relationship'],
-				$alertContent['type']
+                $alertContent['username'],
+                $alertContent['from'],
+                $alertContent['relationship'],
+                $alertContent['type'] 
 	        );
 	    }
 
@@ -1254,7 +1253,8 @@ function relations_myalert_alerts() {
 	     */
 	    public function buildShowLink(MybbStuff_MyAlerts_Entity_Alert $alert)
 	    {
-            return $this->mybb->settings['bburl'] . '/member.php?action=profile&uid=' . $alert->getObjectId();
+            $alertContent = $alert->getExtraDetails();
+            return $this->mybb->settings['bburl'] . '/member.php?action=profile&uid='.$alertContent['from'];
 	    }
 	}
 
