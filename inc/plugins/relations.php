@@ -1,6 +1,4 @@
 <?php
-error_reporting ( -1 );
-ini_set ( 'display_errors', true );
 // Direktzugriff auf die Datei aus Sicherheitsgründen sperren
 if(!defined("IN_MYBB"))
 {
