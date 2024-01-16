@@ -1,4 +1,6 @@
 <?php
+error_reporting ( -1 );
+ini_set ( 'display_errors', true );
 // Direktzugriff auf die Datei aus Sicherheitsgründen sperren
 if(!defined("IN_MYBB"))
 {
@@ -967,7 +969,6 @@ function relations_member_profile_end()
     }
 
     // RELATIONS BEARBEITEN
-    $edit_rel = get_input('edit_relation');
 	if (isset($mybb->input['edit_relation'])) {
 		$rid = $mybb->input['rid'];
 
@@ -1018,18 +1019,17 @@ function relations_member_profile_end()
 	}
 
     // Relations löschen
-	$delete = get_input('delrel');
-	if($delete) {
+	if(isset($mybb->input['delrel'])) {
 
     // MyALERTS STUFF
-    $query_alert = $db->simple_select("relations", "*", "rid = '{$delete}'");
+    $query_alert = $db->simple_select("relations", "*", "rid = '{$mybb->input['delrel']}'");
     while ($alert_del = $db->fetch_array ($query_alert)) {
         if(class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
             $user = get_user($alert['relation_with']);
             $alertType = MybbStuff_MyAlerts_AlertTypeManager::getInstance()->getByCode('relations_delete');
              // WENN DER EINTRÄGER GELÖSCHT HAT
              if ($alertType != NULL && $alertType->getEnabled() && $mybb->user['uid'] != $alert_del['relation_with']) {
-                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_del['relation_with'], $alertType, (int)$delete);
+                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_del['relation_with'], $alertType, (int)$mybb->input['delrel']);
                 $alert->setExtraDetails([
                     'username' => $mybb->user['username'],
                     'from' => $mybb->user['uid'],
@@ -1039,7 +1039,7 @@ function relations_member_profile_end()
                 MybbStuff_MyAlerts_AlertManager::getInstance()->addAlert($alert);
             } // WENN DER EINGETRAGENE LÖSCHT
             elseif ($alertType != NULL && $alertType->getEnabled() && $mybb->user['uid'] == $alert_del['relation_with']) {
-                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_del['relation_by'], $alertType, (int)$delete);
+                $alert = new MybbStuff_MyAlerts_Entity_Alert((int)$alert_del['relation_by'], $alertType, (int)$mybb->input['delrel']);
                 $alert->setExtraDetails([
                     'username' => $mybb->user['username'],
                     'from' => $mybb->user['uid'],
@@ -1051,7 +1051,7 @@ function relations_member_profile_end()
         }
     }
 
-		$db->delete_query("relations", "rid = '$delete'");
+		$db->delete_query("relations", "rid = '".$mybb->input['delrel']."'");
 		redirect("member.php?action=profile&uid={$relation_user}", "{$lang->relations_redirect_delete}");
 	}
 
