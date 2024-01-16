@@ -21,7 +21,7 @@ function relations_info()
 		"description"	=> "Das Plugin erweitert das Board um ein Beziehungssystem. User können andere Accounts zu ihrer Beziehungskiste hinzufügen. Je nach Einstellungen können User auch noch NPCs hinzufügen.",
 		"author"	=> "little.evil.genius",
 		"authorsite"	=> "https://storming-gates.de/member.php?action=profile&uid=1712",
-		"version"	=> "1.0",
+		"version"	=> "1.0.1",
 		"compatibility" => "18*"
 	);
 }
@@ -967,7 +967,7 @@ function relations_member_profile_end()
     }
 
     // RELATIONS BEARBEITEN
-    $edit_rel = $mybb->input['edit_relation'];
+    $edit_rel = get_input('edit_relation');
 	if (isset($mybb->input['edit_relation'])) {
 		$rid = $mybb->input['rid'];
 
@@ -1018,7 +1018,7 @@ function relations_member_profile_end()
 	}
 
     // Relations löschen
-	$delete = $mybb->input['delrel'];
+	$delete = get_input('delrel');
 	if($delete) {
 
     // MyALERTS STUFF
